@@ -43,7 +43,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     packaging {
         resources {
@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -73,6 +75,7 @@ dependencies {
      // Dagger Hilt
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.android.compiler)
     implementation(libs.dagger.hilt.navigation)
 
     // Room
@@ -97,4 +100,11 @@ dependencies {
 
     // Audio player library
     implementation(libs.audio.player.library)
+
+    //Coil
+    implementation(libs.coil.compose)
+
+    implementation(libs.androidx.lifecycle.process)
+
+
 }

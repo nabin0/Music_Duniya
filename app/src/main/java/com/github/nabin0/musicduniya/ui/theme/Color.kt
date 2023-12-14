@@ -1,4 +1,4 @@
-package com.github.nabin0.musicduniya.presentation.ui.theme
+package com.github.nabin0.musicduniya.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

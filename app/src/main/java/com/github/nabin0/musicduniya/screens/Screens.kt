@@ -1,4 +1,4 @@
-package com.github.nabin0.musicduniya.presentation.screens
+package com.github.nabin0.musicduniya.screens
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.MusicNote
@@ -11,12 +11,12 @@ sealed class BottomScreens(
     val route: String,
     val icon: ImageVector
 ) {
-    object Songs : BottomScreens(
+    data object Songs : BottomScreens(
         title = "Songs",
         route = "songs",
         icon = Icons.Rounded.MusicNote
     )
-    object Playlists : BottomScreens(
+    data object Playlists : BottomScreens(
         title = "Playlists",
         route = "playlists",
         icon = Icons.Rounded.PlaylistPlay
@@ -24,5 +24,5 @@ sealed class BottomScreens(
 }
 
 sealed class Screens(val route: String){
-    object FullPlayerScreen: Screens("full player screen")
+    data object FullPlayerScreen: Screens("full player screen/{AUDIO_ID}")
 }
