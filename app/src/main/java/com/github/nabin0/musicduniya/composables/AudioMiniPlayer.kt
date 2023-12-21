@@ -32,7 +32,7 @@ fun AudioMiniPlayer(modifier: Modifier = Modifier) {
                 }
             },
             update = {
-                 audioMiniPlayer?.setCustomLayout(R.layout.audio_mini_player_full_screen_layout)
+                 audioMiniPlayer?.setCustomLayout(R.layout.audio_custom_mini_player_layout)
             }
         )
     }

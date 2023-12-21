@@ -15,11 +15,11 @@ import com.github.nabin0.musicduniya.screens.PlaylistsScreen
 import com.github.nabin0.musicduniya.screens.Screens
 import com.github.nabin0.musicduniya.screens.SongsScreen
 import com.github.nabin0.musicduniya.viewmodels.AudioPlayerProvider
-import com.github.nabin0.musicduniya.viewmodels.SongsListViewModel
+import com.github.nabin0.musicduniya.viewmodels.MusicPlayerSharedViewModel
 
 @Composable
 fun MainNavigationGraph(navHostController: NavHostController, paddingValues: PaddingValues) {
-    val sharedSongsListViewModel: SongsListViewModel = hiltViewModel()
+    val sharedMusicPlayerSharedViewModel: MusicPlayerSharedViewModel = hiltViewModel()
 
     NavHost(
         modifier = Modifier
@@ -34,14 +34,15 @@ fun MainNavigationGraph(navHostController: NavHostController, paddingValues: Pad
         composable(route = BottomScreens.Songs.route) {
 
             SongsScreen(
-                songsListViewModel = sharedSongsListViewModel,
+                musicPlayerSharedViewModel = sharedMusicPlayerSharedViewModel,
                 navigateToFullPlayerScreen = {
-                    AudioPlayerProvider.setPlaylist(sharedSongsListViewModel.audioList)
-                    navHostController.navigate(
-                        Screens.FullPlayerScreen.route.replace(
-                            "{AUDIO_ID}", it.toString()
-                        )
-                    )
+                    AudioPlayerProvider.setPlaylist(sharedMusicPlayerSharedViewModel.audioList)
+                    sharedMusicPlayerSharedViewModel.currentSelectedAudio = it
+//                    navHostController.navigate(
+//                        Screens.FullPlayerScreen.route.replace(
+//                            "{AUDIO_ID}", it.toString()
+//                        )
+//                    )
                 },
             )
         }

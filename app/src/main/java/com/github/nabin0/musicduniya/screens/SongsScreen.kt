@@ -39,44 +39,60 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.github.nabin0.audioplayer.models.Audio
-import com.github.nabin0.musicduniya.composables.AudioMiniPlayer
 import com.github.nabin0.musicduniya.utils.TimeUtil
 import com.github.nabin0.musicduniya.viewmodels.AudioPlayerProvider
-import com.github.nabin0.musicduniya.viewmodels.SongsListViewModel
+import com.github.nabin0.musicduniya.viewmodels.MusicPlayerSharedViewModel
 
 @Composable
 fun SongsScreen(
-    songsListViewModel: SongsListViewModel = hiltViewModel(),
+    musicPlayerSharedViewModel: MusicPlayerSharedViewModel = hiltViewModel(),
     navigateToFullPlayerScreen: (Int) -> Unit,
 ) {
 
-    val audioList = songsListViewModel.audioList
+    val context = LocalContext.current
+
+    val audioList = musicPlayerSharedViewModel.audioList
 
     Scaffold(
         bottomBar = {
-
         },
-    ) {
+    ) { paddingValues ->
+
         SongsListComposable(
             audioList = audioList,
-            navigateToFullPlayerScreen = navigateToFullPlayerScreen,
-            modifier = Modifier.padding(it.calculateBottomPadding())
+            onClickItem = { index ->
+                AudioPlayerProvider.getAudioPlayer(context).also { player ->
+                    player.playMediaItemByIndex(index)
+                    player.prepare()
+                    player.setAutoPlayEnabled(true)
+                    player.startForegroundService()
+                }
+                AudioPlayerProvider.showMiniPlayer.value = true
+
+            },
+            modifier = Modifier.padding(paddingValues.calculateBottomPadding())
         )
     }
 }
 
+
 @Composable
-fun SongsListComposable(audioList: List<Audio>, navigateToFullPlayerScreen: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun SongsListComposable(
+    audioList: List<Audio>,
+    onClickItem: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val context = LocalContext.current
     val currentPlayingAudioIndex by AudioPlayerProvider.getAudioPlayer(context).currentPlayingMediaIndex.collectAsState()
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item { Spacer(modifier = Modifier.statusBarsPadding()) }
 
-        itemsIndexed(items = audioList) { index,audio ->
+        itemsIndexed(items = audioList) { index, audio ->
             val isSelected = (index == currentPlayingAudioIndex)
             AudioItem(audio = audio, onItemClick = {
-                navigateToFullPlayerScreen(index)
+                AudioPlayerProvider.setPlaylist(audioList)
+                onClickItem(index)
             }, isSelected = isSelected)
         }
     }
@@ -85,7 +101,8 @@ fun SongsListComposable(audioList: List<Audio>, navigateToFullPlayerScreen: (Int
 
 @Composable
 fun AudioItem(audio: Audio, onItemClick: () -> Unit, isSelected: Boolean) {
-    val itemColor = if(isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f) else MaterialTheme.colorScheme.surface
+    val itemColor =
+        if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f) else MaterialTheme.colorScheme.surface
     Row(
         modifier = Modifier
             .padding(vertical = 4.dp)

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat.DayNight">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/albumImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="70dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textAudioTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/audioSeekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumImage"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <TextView
+        android:id="@+id/textArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/audioSeekBar"
+        app:layout_constraintEnd_toEndOf="@+id/textAudioTitle"
+        app:layout_constraintStart_toStartOf="@+id/textAudioTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textAudioTitle"
+        app:layout_constraintVertical_bias="0.16000003" />
+
+    <SeekBar
+        android:id="@+id/audioSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/black"
+        android:progressBackgroundTint="@color/black"
+        android:progressTint="@color/black"
+        android:thumbTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/audioControlContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumImage"
+        app:layout_constraintVertical_bias="0.69" />
+
+    <TextView
+        android:id="@+id/textCurrentPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/audioSeekBar"
+        app:layout_constraintTop_toBottomOf="@id/audioSeekBar" />
+
+    <TextView
+        android:id="@+id/textAudioDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/audioSeekBar"
+        app:layout_constraintTop_toBottomOf="@id/audioSeekBar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/audioControlContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumImage"
+        app:layout_constraintVertical_bias="0.87">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/favoriteButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="0dp"
+            android:background="@drawable/round_favorite_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/previousButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/previousButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_skip_previous"
+            android:backgroundTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/favoriteButton"
+            app:layout_constraintEnd_toStartOf="@id/playbackControlContainer"
+            app:layout_constraintStart_toEndOf="@id/favoriteButton"
+            app:layout_constraintTop_toTopOf="@id/favoriteButton" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/playbackControlContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/previousButton"
+            app:layout_constraintEnd_toStartOf="@id/nextButton"
+            app:layout_constraintStart_toEndOf="@id/previousButton"
+            app:layout_constraintTop_toTopOf="@id/previousButton">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/playButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/play_arrow"
+                android:backgroundTint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="61dp"
+                android:layout_height="61dp"
+                android:background="@color/transparentColor"
+                android:padding="4dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/pauseButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/round_pause"
+                android:backgroundTint="@color/black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/nextButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_skip_next"
+            android:backgroundTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/playbackControlContainer"
+            app:layout_constraintEnd_toStartOf="@id/playBackModeButton"
+            app:layout_constraintStart_toEndOf="@id/playbackControlContainer"
+            app:layout_constraintTop_toTopOf="@id/playbackControlContainer" />
+
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/playBackModeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/transparentColor"
+            android:backgroundTint="@color/black"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/nextButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/nextButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
